@@ -5,6 +5,253 @@
 
 import { loadTextFileToArray, loadJSONFile } from "./npc-data-loader.js";
 
+
+// === SRD 查找工具（內嵌版 | v12+dnd5e 4.4.4） ==========================
+const SRDLookup = (() => {
+    const _indexCache = new Map();
+    const _badPacks = new Set();
+
+    function getConfiguredPacks() {
+        try {
+            const packs = CFG?.srd?.packs;
+            if (Array.isArray(packs) && packs.length) return packs;
+        } catch { }
+        return ["dnd5e.items", "dnd5e.spells"];
+    }
+    async function getItemDataByNameWithRules(name, opts = {}) {
+        // opts: { allowFuzzy, prefer, requireIdentifier, requireBaseItem, onlyCommon, denyPlus }
+        const cfg = {
+            allowFuzzy: CFG?.srd?.allowFuzzy !== false,     // 預設 true（相容舊版）
+            prefer: CFG?.srd?.prefer || "identifier",       // "identifier" | "baseItem"
+            onlyCommon: CFG?.srd?.onlyCommon !== false,     // 預設 true
+            denyPlus: CFG?.srd?.denyPlus !== false,         // 預設 true
+            ...opts
+        };
+
+        const packs = (CFG?.srd?.packs && CFG.srd.packs.length)
+            ? CFG.srd.packs : ["dnd5e.items", "dnd5e.spells"];
+
+        // 小工具：依條件過濾候選
+        function filterByRules(cands) {
+            let list = Array.from(cands || []);
+            if (cfg.denyPlus) list = list.filter(x => !isPlusVariant(x?.name));
+            if (cfg.onlyCommon) list = list.filter(isNonMagicalBase);
+            if (cfg.requireIdentifier) {
+                const wantId = normalizeKey(cfg.requireIdentifier);
+                list = list.filter(x => normalizeKey(x?.system?.identifier) === wantId);
+            }
+            if (cfg.requireBaseItem) {
+                const wantBase = normalizeKey(cfg.requireBaseItem);
+                list = list.filter(x => normalizeKey(x?.system?.baseItem) === wantBase);
+            }
+            return list;
+        }
+
+        // 依偏好欄位選路徑（先 identifier 再 baseItem，或反之）
+        const routes = (cfg.prefer === "baseItem")
+            ? ["baseItem", "identifier"]
+            : ["identifier", "baseItem"];
+
+        for (const p of packs) {
+            await ensureIndex(p);
+            const idx = _indexCache.get(p);
+            if (!idx) continue;
+
+            const rawTarget = String(name || "");
+            const english = extractEnglishAlias(rawTarget);
+            const baseHumanName = english || rawTarget;
+            const wantId = normalizeKey(identifierFromName(baseHumanName));
+
+            let candidates = [];
+
+            for (const route of routes) {
+                if (route === "identifier") {
+                    const idExact = idx.filter(x => normalizeKey(x?.system?.identifier) === wantId);
+                    candidates = filterByRules(idExact);
+                    if (candidates.length) break;
+                }
+                if (route === "baseItem") {
+                    const baseMatch = idx.filter(x => normalizeKey(x?.system?.baseItem) === wantId);
+                    candidates = filterByRules(baseMatch);
+                    if (candidates.length) break;
+                }
+            }
+
+            // 嚴格路徑沒找到，若開放 allowFuzzy，才嘗試安全別名
+            if (!candidates.length && cfg.allowFuzzy) {
+                const safe = idx.filter(x => isSafeAlias(rawTarget, x?.name));
+                candidates = filterByRules(safe);
+            }
+
+            if (!candidates.length) continue;
+
+            // 用你既有的最佳化策略挑一個
+            const best = chooseBest(candidates, rawTarget);
+            try {
+                const comp = game.packs.get(p);
+                const doc = await comp.getDocument(best._id);
+                if (!doc) continue;
+                // 最終再套一次條件
+                if (cfg.denyPlus && isPlusVariant(doc.name)) continue;
+                if (cfg.onlyCommon && !isNonMagicalBase(doc)) continue;
+                return doc.toObject?.() ?? {};
+            } catch { /* 試下一個 pack */ }
+        }
+        return {};
+    }
+    return { getItemDataByName, getItemDataByNameWithRules };
+    async function ensureIndex(pack) {
+        if (_indexCache.has(pack) || _badPacks.has(pack)) return;
+        const comp = game.packs.get(pack);
+        if (!comp) { _badPacks.add(pack); return; }
+        if (comp.documentName !== "Item") { _badPacks.add(pack); return; }
+
+        // 關鍵：把 dnd5e 4.4.4 會用到的欄位索引進來
+        const idx = await comp.getIndex({
+            fields: [
+                "name",
+                "type",
+                "system.identifier", // 例："-spear", "-greatsword"
+                "system.baseItem",   // 例："spear", "greatsword"
+                "system.rarity"      // 過濾魔法物用
+            ]
+        });
+        _indexCache.set(pack, idx);
+    }
+
+    // ============ 名稱 / 識別符 工具 =============
+    function normalizeName(s) {
+        return String(s || "").trim().replace(/\s+/g, " ").toLowerCase();
+    }
+    function isPlusVariant(s) {
+        return /\+\s*\d+/.test(String(s || ""));
+    }
+    function extractEnglishAlias(raw) {
+        // 擷取在地化名中的 [英文] 或 (英文) 作為「原名」
+        const str = String(raw || "");
+        const m = str.match(/[\[\(（【]\s*([A-Za-z][A-Za-z0-9 '\-]+)\s*[\]\)）】]/);
+        return m ? m[1] : null;
+    }
+    function identifierFromName(name) {
+        // "Light Crossbow" → "light-crossbow"; "Chain Shirt" → "chain-shirt"
+        return String(name || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+    }
+    function normalizeKey(s) {
+        return String(s || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9-]/g, "")
+            .replace(/^-+/, ""); // 去掉前導 "-"
+    }
+    function isNonMagicalBase(entry) {
+        const r = (entry?.system?.rarity || "").toLowerCase();
+        // 稀有度空/ common 視為非魔法；名稱禁止 +數字
+        return (!r || r === "common") && !isPlusVariant(entry?.name);
+    }
+    function isSafeAlias(baseName, candidateName) {
+        // 僅允許：完全相等 或 「基底 + (…)/(…) 或 […]/[…]」註記
+        const b = normalizeName(baseName);
+        const c = normalizeName(candidateName);
+        if (c === b) return true;
+        if (isPlusVariant(candidateName)) return false;
+        if (!c.startsWith(b)) return false;
+        const suffix = c.slice(b.length);
+        return /^\s*[\[(（【].*[\])）】]\s*$/.test(suffix);
+    }
+
+    function chooseBest(cands, wantName) {
+        // 1) 非魔法基底優先
+        let list = cands.filter(isNonMagicalBase);
+        if (!list.length) list = cands.slice();
+
+        // 2) 名稱為安全別名者優先
+        let best = list.find(x => isSafeAlias(wantName, x?.name));
+        if (best) return best;
+
+        // 3) 單一候選或回退第一個
+        return list[0] || null;
+    }
+
+    function findByName(idx, name) {
+        if (!name) return null;
+        const rawTarget = String(name);
+        const lowerTarget = normalizeName(rawTarget);
+
+        // A) 先試「安全別名」等名（處理本地化 + [英名]）
+        let hit = idx.find(x => x?.name === rawTarget);
+        if (hit && isSafeAlias(rawTarget, hit.name)) return hit;
+
+        hit = idx.find(x => normalizeName(x?.name) === lowerTarget);
+        if (hit && isSafeAlias(rawTarget, hit.name)) return hit;
+
+        // B) 用 [英名] 提示產生識別符（若存在）
+        const english = extractEnglishAlias(rawTarget);
+        const baseHumanName = english || rawTarget;              // 優先用英名
+        const wantId = normalizeKey(identifierFromName(baseHumanName)); // 例："Shortbow"→"shortbow"
+
+        // B1) 直接比對 system.identifier（允許有或沒有前導 "-"）
+        const idExact = idx.filter(x => {
+            const id = normalizeKey(x?.system?.identifier);
+            return id && (id === wantId);
+        });
+        if (idExact.length) {
+            const best = chooseBest(idExact, rawTarget);
+            if (best) return best;
+        }
+
+        // B2) 若 identifier 沒命中，用 baseItem 比對，但需嚴格過濾掉變體：
+        //     - baseItem 等於 wantId
+        //     - 非魔法（避免 Vicious / +1 等）
+        //     - 名稱需通過安全別名，避免抓到「不同東西但同基底」的魔改
+        const baseMatch = idx.filter(x => {
+            const base = normalizeKey(x?.system?.baseItem);
+            return base && base === wantId && isNonMagicalBase(x) && isSafeAlias(rawTarget, x?.name);
+        });
+        if (baseMatch.length) {
+            const best = chooseBest(baseMatch, rawTarget);
+            if (best) return best;
+        }
+
+        // C) 最後保守回退：只允許「基底名 + 括號註記」
+        const safeAlias = idx.find(x => isSafeAlias(rawTarget, x?.name));
+        if (safeAlias) return safeAlias;
+
+        return null;
+    }
+
+    async function getItemDataByName(name) {
+        const packs = getConfiguredPacks();
+        for (const p of packs) {
+            await ensureIndex(p);
+            const idx = _indexCache.get(p);
+            if (!idx) continue;
+
+            const hit = findByName(idx, name);
+            if (!hit) continue;
+
+            try {
+                const comp = game.packs.get(p);
+                const doc = await comp.getDocument(hit._id);
+
+                // 防呆：再檢一次
+                if (!doc || !isNonMagicalBase(doc) || !isSafeAlias(name, doc.name)) {
+                    continue;
+                }
+                return doc?.toObject?.() ?? {};
+            } catch {
+                // ignore and try next pack
+            }
+        }
+        return {};
+    }
+
+    return { getItemDataByName };
+})();
+
+// =====================================================================
+
 /* ========================
  * 全域狀態（由外部載入）
  * ======================== */
@@ -269,10 +516,69 @@ function buildTexts(raceId) {
 }
 
 // 裝備 + 法術
-function buildItemsByType(typeId) {
+async function buildItemsByType(typeId) {
     const gear = Array.isArray(NPC_GEAR?.[typeId]) ? NPC_GEAR[typeId] : [];
     const spells = Array.isArray(NPC_SPELLS?.[typeId]) ? NPC_SPELLS[typeId] : [];
-    return [...gear, ...spells];
+    const entries = [...gear, ...spells];
+
+    const srdEnabled = CFG?.srd?.enabled !== false;            // 預設啟用
+    const fallback = (CFG?.srd?.fallback || "empty").toLowerCase(); // "empty" | "inline"
+    const cat = CFG?.categories || {};
+    const out = [];
+
+    for (const e of entries) {
+        // 1) 來源名稱（字串或物件）
+        const name = (typeof e === "string") ? e : (e?.srdName || e?.name || e?.id || "");
+        const type = (typeof e === "object") ? (e.type || "") : "";
+
+        // 2) 先看此類別是否允許抓 SRD
+        const typeFlag =
+            (type === "weapon" && cat.weapon) ||
+            (type === "equipment" && cat.equipment) ||
+            (type === "shield" && cat.shield) ||
+            (type === "spell" && cat.spell);
+
+        // 3) 準備規則（全域 + 條目級覆寫）
+        const rules = Object.assign({}, e?.srdRules || {});
+        // 若條目沒寫，使用全域預設（在 getItemDataByNameWithRules 裡面也會再補一次）
+        // 這裡可選擇顯式寫入，方便除錯觀察：
+        if (rules.allowFuzzy == null) rules.allowFuzzy = CFG?.srd?.allowFuzzy !== false;
+        if (!rules.prefer) rules.prefer = CFG?.srd?.prefer || "identifier";
+        if (rules.onlyCommon == null) rules.onlyCommon = CFG?.srd?.onlyCommon !== false;
+        if (rules.denyPlus == null) rules.denyPlus = CFG?.srd?.denyPlus !== false;
+
+        let data = {};
+
+        if (srdEnabled && typeFlag && name) {
+            // ★ 有條件地抓 SRD
+            data = await SRDLookup.getItemDataByNameWithRules(name, rules);
+        }
+
+        if (!data || Object.keys(data).length === 0) {
+            // SRD 沒命中或被規則排除 → 依 fallback 策略
+            if (fallback === "inline" && e && typeof e === "object" && Object.keys(e).length > 1) {
+                out.push(e);          // 用你在清單內的「內嵌定義」
+            } else {
+                out.push({});         // 或者留空，由 NPC 建立後再補
+            }
+            continue;
+        }
+
+        // 命中 SRD：套用覆寫
+        if (e && typeof e === "object") {
+            if (e.overrideName) data.name = e.overrideName;
+            if (e.system && typeof e.system === "object") {
+                data.system = Object.assign({}, data.system || {}, e.system);
+            }
+            if (Number.isFinite(e.quantity)) {
+                data.system = Object.assign({}, data.system || {}, { quantity: e.quantity });
+            }
+        }
+
+        out.push(data);
+    }
+
+    return out;
 }
 
 // 類型參數
@@ -321,7 +627,7 @@ const npcGenerator = {
             applyRaceAbilityBonus(abilities, raceEntry);
 
             const { biographyHTML, backgroundPlain } = buildTexts(raceId);
-            const items = buildItemsByType(typeId);
+            const items = await buildItemsByType(typeId);
             const hp = Math.floor(Math.random() * 20) + 10; // 10~30
             const ac = Math.floor(Math.random() * 5) + 10;
             const languages = Array.from(new Set([...(raceLangs || []), ...(extraLanguages || [])]));
