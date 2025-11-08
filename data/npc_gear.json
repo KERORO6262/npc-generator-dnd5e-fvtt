@@ -2,6 +2,7 @@
   "Bandit": [
     {
       "name": "Scimitar",
+      "srdName":"Scimitar",
       "type": "weapon",
       "system": {
         "weaponType": "martialM",
@@ -16,6 +17,7 @@
     },
     {
       "name": "Light Crossbow",
+      "srdName":"Light Crossbow",
       "type": "weapon",
       "system": {
         "weaponType": "martialR",
@@ -30,6 +32,7 @@
     },
     {
       "name": "Leather Armor",
+      "srdName":"Leather Armor",
       "type": "equipment",
       "system": {
         "equipped": true,
@@ -41,6 +44,7 @@
   "Commoner": [
     {
       "name": "Club",
+      "srdName":"Club",
       "type": "weapon",
       "system": {
         "weaponType": "simpleM",
@@ -55,6 +59,7 @@
     },
     {
       "name": "Padded Clothes",
+      "srdName":"Padded Clothes",
       "type": "equipment",
       "system": {
         "equipped": true,
@@ -66,6 +71,7 @@
   "Guard": [
     {
       "name": "Spear",
+      "srdName":"Spear",
       "type": "weapon",
       "system": {
         "weaponType": "simpleM",
@@ -80,7 +86,8 @@
     },
     {
       "name": "Shield",
-      "type": "equipment",
+      "srdName":"Shield",
+      "type": "shield",
       "system": {
         "equipped": true,
         "armor": { "value": 2 },
@@ -89,6 +96,7 @@
     },
     {
       "name": "Chain Shirt",
+      "srdName":"Chain Shirt",
       "type": "equipment",
       "system": {
         "equipped": true,
@@ -100,6 +108,7 @@
   "Scout": [
     {
       "name": "Shortbow",
+      "srdName":"Shortbow",
       "type": "weapon",
       "system": {
         "weaponType": "simpleR",
@@ -114,6 +123,7 @@
     },
     {
       "name": "Scimitar",
+      "srdName":"Scimitar",
       "type": "weapon",
       "system": {
         "weaponType": "martialM",
@@ -128,6 +138,7 @@
     },
     {
       "name": "Studded Leather",
+      "srdName":"Studded Leather",
       "type": "equipment",
       "system": {
         "equipped": true,
@@ -139,6 +150,7 @@
   "Thug": [
     {
       "name": "Mace",
+      "srdName":"Mace",
       "type": "weapon",
       "system": {
         "weaponType": "simpleM",
@@ -152,6 +164,7 @@
     },
     {
       "name": "Light Crossbow",
+      "srdName":"Light Crossbow",
       "type": "weapon",
       "system": {
         "weaponType": "martialR",
@@ -166,6 +179,7 @@
     },
     {
       "name": "Leather Armor",
+      "srdName":"Leather Armor",
       "type": "equipment",
       "system": {
         "equipped": true,
