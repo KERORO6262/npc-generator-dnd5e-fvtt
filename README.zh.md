@@ -1,3 +1,4 @@
+![NPC Generator for Foundry VTT (DnD5e) banner](assets/banner.png)
 # NPC Generator (FoundryVTT v12.343 + dnd5e)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
