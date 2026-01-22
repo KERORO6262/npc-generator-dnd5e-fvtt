@@ -20,10 +20,20 @@
     "spells": "modules/npc-generator/data/npc_spells.json"
   },
   "defaultRaceImage": "icons/svg/mystery-man.svg",
+  "defaultRaceImages": {
+    "male": "icons/svg/mystery-man.svg",
+    "female": "icons/svg/mystery-man.svg",
+    "other": "icons/svg/mystery-man.svg"
+  },
   "races": [
     {
       "id": "Human",
       "raceImage": "icons/svg/mystery-man.svg",
+      "raceImages": {
+        "male": "icons/svg/mystery-man.svg",
+        "female": "icons/svg/mystery-man.svg",
+        "other": "icons/svg/mystery-man.svg"
+      },
       "speed": 30,
       "abilityBonuses": {
         "str": 1,
@@ -80,6 +90,11 @@
     {
       "id": "Elf",
       "raceImage": "icons/svg/mystery-man.svg",
+      "raceImages": {
+        "male": "icons/svg/mystery-man.svg",
+        "female": "icons/svg/mystery-man.svg",
+        "other": "icons/svg/mystery-man.svg"
+      },
       "speed": 30,
       "abilityBonuses": {
         "dex": 2
@@ -132,6 +147,11 @@
     {
       "id": "Dwarf",
       "raceImage": "icons/svg/mystery-man.svg",
+      "raceImages": {
+        "male": "icons/svg/mystery-man.svg",
+        "female": "icons/svg/mystery-man.svg",
+        "other": "icons/svg/mystery-man.svg"
+      },
       "speed": 25,
       "abilityBonuses": {
         "con": 2
@@ -184,6 +204,11 @@
     {
       "id": "Halfling",
       "raceImage": "icons/svg/mystery-man.svg",
+      "raceImages": {
+        "male": "icons/svg/mystery-man.svg",
+        "female": "icons/svg/mystery-man.svg",
+        "other": "icons/svg/mystery-man.svg"
+      },
       "speed": 25,
       "abilityBonuses": {
         "dex": 2
@@ -236,6 +261,11 @@
     {
       "id": "Tiefling",
       "raceImage": "icons/svg/mystery-man.svg",
+      "raceImages": {
+        "male": "icons/svg/mystery-man.svg",
+        "female": "icons/svg/mystery-man.svg",
+        "other": "icons/svg/mystery-man.svg"
+      },
       "speed": 30,
       "abilityBonuses": {
         "cha": 2

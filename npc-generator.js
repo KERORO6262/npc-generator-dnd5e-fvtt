@@ -479,8 +479,7 @@ function pickAgeForRace(raceId) {
 }
 
 // 傳記/背景（★ 年齡置於倒數第二行；性別最後）
-function buildTexts(raceId) {
-    const gender = pickGender();
+function buildTexts(raceId, gender) {
     const bg = pick(BACKGROUND_STORIES, "來自平凡家庭，行走四方。");
     const per = pick(PERSONALITIES, null);
     const q = pick(QUIRKS, null);
@@ -602,8 +601,22 @@ function getRaceParams(raceId) {
     };
 }
 
-function getRaceImage(raceEntry) {
-    return raceEntry?.raceImage || CFG?.defaultRaceImage || "icons/svg/mystery-man.svg";
+function normalizeGenderKey(gender) {
+    const raw = String(gender || "").toLowerCase();
+    if (/(female|woman|girl|女)/.test(raw)) return "female";
+    if (/(male|man|boy|男)/.test(raw)) return "male";
+    return "other";
+}
+
+function getRaceImage(raceEntry, gender) {
+    const genderKey = normalizeGenderKey(gender);
+    return (
+        raceEntry?.raceImages?.[genderKey] ||
+        raceEntry?.raceImage ||
+        CFG?.defaultRaceImages?.[genderKey] ||
+        CFG?.defaultRaceImage ||
+        "icons/svg/mystery-man.svg"
+    );
 }
 
 /* ========================
@@ -617,8 +630,9 @@ const npcGenerator = {
             const raceId = pick(RACES.map(r => r.id), "Human");
             const typeId = pick(TYPES.map(t => t.id), "Commoner");
 
+            const gender = pickGender();
             const { speed, languages: raceLangs, entry: raceEntry } = getRaceParams(raceId);
-            const raceImage = getRaceImage(raceEntry);
+            const raceImage = getRaceImage(raceEntry, gender);
             const { cr, xp, skills, extraLanguages } = getTypeParams(typeId);
 
             let abilities = {
@@ -631,7 +645,7 @@ const npcGenerator = {
             };
             applyRaceAbilityBonus(abilities, raceEntry);
 
-            const { biographyHTML, backgroundPlain } = buildTexts(raceId);
+            const { biographyHTML, backgroundPlain } = buildTexts(raceId, gender);
             const items = await buildItemsByType(typeId);
             const hp = Math.floor(Math.random() * 20) + 10; // 10~30
             const ac = Math.floor(Math.random() * 5) + 10;
