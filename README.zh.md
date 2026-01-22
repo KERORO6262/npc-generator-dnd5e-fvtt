@@ -94,6 +94,7 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 - **性別池**：編輯 genders.txt。  
 - **年齡分布**：修改 config/config.json 的 races[*].age.buckets；修改 ages/labels.txt 改顯示文字。  
 - **裝備/法術**：編輯 npc_gear.json、npc_spells.json。  
+- **NPC 頭像/Token 圖片**：建議放在 `modules/npc-generator/assets/portraits/<Race>/<gender>.webp`，並在 `data/config/config.json` 設定 `races[*].raceImages.male|female|other` 或 `defaultRaceImages.male|female|other` 指向對應路徑（例如 `modules/npc-generator/assets/portraits/Human/male.webp`）。檔名/資料夾可自訂，但性別鍵名需固定為 `male`、`female`、`other`。  
 
 ---
 
