@@ -602,6 +602,10 @@ function getRaceParams(raceId) {
     };
 }
 
+function getRaceImage(raceEntry) {
+    return raceEntry?.raceImage || CFG?.defaultRaceImage || "icons/svg/mystery-man.svg";
+}
+
 /* ========================
  * 產生器主流程
  * ======================== */
@@ -614,6 +618,7 @@ const npcGenerator = {
             const typeId = pick(TYPES.map(t => t.id), "Commoner");
 
             const { speed, languages: raceLangs, entry: raceEntry } = getRaceParams(raceId);
+            const raceImage = getRaceImage(raceEntry);
             const { cr, xp, skills, extraLanguages } = getTypeParams(typeId);
 
             let abilities = {
@@ -636,6 +641,10 @@ const npcGenerator = {
             const newActorData = {
                 name: `${fullName} (${typeId}, ${raceId})`,
                 type: "npc",
+                img: raceImage,
+                prototypeToken: {
+                    texture: { src: raceImage }
+                },
                 items,
                 system: {
                     details: {
