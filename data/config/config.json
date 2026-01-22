@@ -19,9 +19,21 @@
     "gear": "modules/npc-generator/data/npc_gear.json",
     "spells": "modules/npc-generator/data/npc_spells.json"
   },
+  "defaultRaceImage": "modules/npc-generator/assets/portraits/default.webp",
+  "defaultRaceImages": {
+    "male": "modules/npc-generator/assets/portraits/default/male.webp",
+    "female": "modules/npc-generator/assets/portraits/default/female.webp",
+    "other": "modules/npc-generator/assets/portraits/default/other.webp"
+  },
   "races": [
     {
       "id": "Human",
+      "raceImage": "modules/npc-generator/assets/portraits/Human/default.webp",
+      "raceImages": {
+        "male": "modules/npc-generator/assets/portraits/Human/male.webp",
+        "female": "modules/npc-generator/assets/portraits/Human/female.webp",
+        "other": "modules/npc-generator/assets/portraits/Human/other.webp"
+      },
       "speed": 30,
       "abilityBonuses": {
         "str": 1,
@@ -77,6 +89,12 @@
     },
     {
       "id": "Elf",
+      "raceImage": "modules/npc-generator/assets/portraits/Elf/default.webp",
+      "raceImages": {
+        "male": "modules/npc-generator/assets/portraits/Elf/male.webp",
+        "female": "modules/npc-generator/assets/portraits/Elf/female.webp",
+        "other": "modules/npc-generator/assets/portraits/Elf/other.webp"
+      },
       "speed": 30,
       "abilityBonuses": {
         "dex": 2
@@ -128,6 +146,12 @@
     },
     {
       "id": "Dwarf",
+      "raceImage": "modules/npc-generator/assets/portraits/Dwarf/default.webp",
+      "raceImages": {
+        "male": "modules/npc-generator/assets/portraits/Dwarf/male.webp",
+        "female": "modules/npc-generator/assets/portraits/Dwarf/female.webp",
+        "other": "modules/npc-generator/assets/portraits/Dwarf/other.webp"
+      },
       "speed": 25,
       "abilityBonuses": {
         "con": 2
@@ -179,6 +203,12 @@
     },
     {
       "id": "Halfling",
+      "raceImage": "modules/npc-generator/assets/portraits/Halfling/default.webp",
+      "raceImages": {
+        "male": "modules/npc-generator/assets/portraits/Halfling/male.webp",
+        "female": "modules/npc-generator/assets/portraits/Halfling/female.webp",
+        "other": "modules/npc-generator/assets/portraits/Halfling/other.webp"
+      },
       "speed": 25,
       "abilityBonuses": {
         "dex": 2
@@ -230,6 +260,12 @@
     },
     {
       "id": "Tiefling",
+      "raceImage": "modules/npc-generator/assets/portraits/Tiefling/default.webp",
+      "raceImages": {
+        "male": "modules/npc-generator/assets/portraits/Tiefling/male.webp",
+        "female": "modules/npc-generator/assets/portraits/Tiefling/female.webp",
+        "other": "modules/npc-generator/assets/portraits/Tiefling/other.webp"
+      },
       "speed": 30,
       "abilityBonuses": {
         "cha": 2
