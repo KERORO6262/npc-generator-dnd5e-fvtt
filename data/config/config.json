@@ -25,6 +25,33 @@
     "female": "modules/npc-generator/assets/portraits/default/female.webp",
     "other": "modules/npc-generator/assets/portraits/default/other.webp"
   },
+  "defaultRaceTypeImages": {
+    "Commoner": {
+      "male": "modules/npc-generator/assets/portraits/default/Commoner/male.webp",
+      "female": "modules/npc-generator/assets/portraits/default/Commoner/female.webp",
+      "other": "modules/npc-generator/assets/portraits/default/Commoner/other.webp"
+    },
+    "Bandit": {
+      "male": "modules/npc-generator/assets/portraits/default/Bandit/male.webp",
+      "female": "modules/npc-generator/assets/portraits/default/Bandit/female.webp",
+      "other": "modules/npc-generator/assets/portraits/default/Bandit/other.webp"
+    },
+    "Guard": {
+      "male": "modules/npc-generator/assets/portraits/default/Guard/male.webp",
+      "female": "modules/npc-generator/assets/portraits/default/Guard/female.webp",
+      "other": "modules/npc-generator/assets/portraits/default/Guard/other.webp"
+    },
+    "Scout": {
+      "male": "modules/npc-generator/assets/portraits/default/Scout/male.webp",
+      "female": "modules/npc-generator/assets/portraits/default/Scout/female.webp",
+      "other": "modules/npc-generator/assets/portraits/default/Scout/other.webp"
+    },
+    "Thug": {
+      "male": "modules/npc-generator/assets/portraits/default/Thug/male.webp",
+      "female": "modules/npc-generator/assets/portraits/default/Thug/female.webp",
+      "other": "modules/npc-generator/assets/portraits/default/Thug/other.webp"
+    }
+  },
   "races": [
     {
       "id": "Human",
@@ -33,6 +60,33 @@
         "male": "modules/npc-generator/assets/portraits/Human/male.webp",
         "female": "modules/npc-generator/assets/portraits/Human/female.webp",
         "other": "modules/npc-generator/assets/portraits/Human/other.webp"
+      },
+      "raceTypeImages": {
+        "Commoner": {
+          "male": "modules/npc-generator/assets/portraits/Human/Commoner/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Human/Commoner/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Human/Commoner/other.webp"
+        },
+        "Bandit": {
+          "male": "modules/npc-generator/assets/portraits/Human/Bandit/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Human/Bandit/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Human/Bandit/other.webp"
+        },
+        "Guard": {
+          "male": "modules/npc-generator/assets/portraits/Human/Guard/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Human/Guard/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Human/Guard/other.webp"
+        },
+        "Scout": {
+          "male": "modules/npc-generator/assets/portraits/Human/Scout/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Human/Scout/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Human/Scout/other.webp"
+        },
+        "Thug": {
+          "male": "modules/npc-generator/assets/portraits/Human/Thug/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Human/Thug/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Human/Thug/other.webp"
+        }
       },
       "speed": 30,
       "abilityBonuses": {
@@ -95,6 +149,33 @@
         "female": "modules/npc-generator/assets/portraits/Elf/female.webp",
         "other": "modules/npc-generator/assets/portraits/Elf/other.webp"
       },
+      "raceTypeImages": {
+        "Commoner": {
+          "male": "modules/npc-generator/assets/portraits/Elf/Commoner/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Elf/Commoner/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Elf/Commoner/other.webp"
+        },
+        "Bandit": {
+          "male": "modules/npc-generator/assets/portraits/Elf/Bandit/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Elf/Bandit/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Elf/Bandit/other.webp"
+        },
+        "Guard": {
+          "male": "modules/npc-generator/assets/portraits/Elf/Guard/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Elf/Guard/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Elf/Guard/other.webp"
+        },
+        "Scout": {
+          "male": "modules/npc-generator/assets/portraits/Elf/Scout/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Elf/Scout/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Elf/Scout/other.webp"
+        },
+        "Thug": {
+          "male": "modules/npc-generator/assets/portraits/Elf/Thug/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Elf/Thug/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Elf/Thug/other.webp"
+        }
+      },
       "speed": 30,
       "abilityBonuses": {
         "dex": 2
@@ -151,6 +232,33 @@
         "male": "modules/npc-generator/assets/portraits/Dwarf/male.webp",
         "female": "modules/npc-generator/assets/portraits/Dwarf/female.webp",
         "other": "modules/npc-generator/assets/portraits/Dwarf/other.webp"
+      },
+      "raceTypeImages": {
+        "Commoner": {
+          "male": "modules/npc-generator/assets/portraits/Dwarf/Commoner/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Dwarf/Commoner/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Dwarf/Commoner/other.webp"
+        },
+        "Bandit": {
+          "male": "modules/npc-generator/assets/portraits/Dwarf/Bandit/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Dwarf/Bandit/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Dwarf/Bandit/other.webp"
+        },
+        "Guard": {
+          "male": "modules/npc-generator/assets/portraits/Dwarf/Guard/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Dwarf/Guard/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Dwarf/Guard/other.webp"
+        },
+        "Scout": {
+          "male": "modules/npc-generator/assets/portraits/Dwarf/Scout/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Dwarf/Scout/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Dwarf/Scout/other.webp"
+        },
+        "Thug": {
+          "male": "modules/npc-generator/assets/portraits/Dwarf/Thug/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Dwarf/Thug/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Dwarf/Thug/other.webp"
+        }
       },
       "speed": 25,
       "abilityBonuses": {
@@ -209,6 +317,33 @@
         "female": "modules/npc-generator/assets/portraits/Halfling/female.webp",
         "other": "modules/npc-generator/assets/portraits/Halfling/other.webp"
       },
+      "raceTypeImages": {
+        "Commoner": {
+          "male": "modules/npc-generator/assets/portraits/Halfling/Commoner/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Halfling/Commoner/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Halfling/Commoner/other.webp"
+        },
+        "Bandit": {
+          "male": "modules/npc-generator/assets/portraits/Halfling/Bandit/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Halfling/Bandit/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Halfling/Bandit/other.webp"
+        },
+        "Guard": {
+          "male": "modules/npc-generator/assets/portraits/Halfling/Guard/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Halfling/Guard/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Halfling/Guard/other.webp"
+        },
+        "Scout": {
+          "male": "modules/npc-generator/assets/portraits/Halfling/Scout/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Halfling/Scout/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Halfling/Scout/other.webp"
+        },
+        "Thug": {
+          "male": "modules/npc-generator/assets/portraits/Halfling/Thug/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Halfling/Thug/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Halfling/Thug/other.webp"
+        }
+      },
       "speed": 25,
       "abilityBonuses": {
         "dex": 2
@@ -265,6 +400,33 @@
         "male": "modules/npc-generator/assets/portraits/Tiefling/male.webp",
         "female": "modules/npc-generator/assets/portraits/Tiefling/female.webp",
         "other": "modules/npc-generator/assets/portraits/Tiefling/other.webp"
+      },
+      "raceTypeImages": {
+        "Commoner": {
+          "male": "modules/npc-generator/assets/portraits/Tiefling/Commoner/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Tiefling/Commoner/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Tiefling/Commoner/other.webp"
+        },
+        "Bandit": {
+          "male": "modules/npc-generator/assets/portraits/Tiefling/Bandit/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Tiefling/Bandit/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Tiefling/Bandit/other.webp"
+        },
+        "Guard": {
+          "male": "modules/npc-generator/assets/portraits/Tiefling/Guard/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Tiefling/Guard/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Tiefling/Guard/other.webp"
+        },
+        "Scout": {
+          "male": "modules/npc-generator/assets/portraits/Tiefling/Scout/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Tiefling/Scout/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Tiefling/Scout/other.webp"
+        },
+        "Thug": {
+          "male": "modules/npc-generator/assets/portraits/Tiefling/Thug/male.webp",
+          "female": "modules/npc-generator/assets/portraits/Tiefling/Thug/female.webp",
+          "other": "modules/npc-generator/assets/portraits/Tiefling/Thug/other.webp"
+        }
       },
       "speed": 30,
       "abilityBonuses": {

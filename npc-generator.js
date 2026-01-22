@@ -608,11 +608,13 @@ function normalizeGenderKey(gender) {
     return "other";
 }
 
-function getRaceImage(raceEntry, gender) {
+function getRaceImage(raceEntry, gender, typeId) {
     const genderKey = normalizeGenderKey(gender);
     return (
+        raceEntry?.raceTypeImages?.[typeId]?.[genderKey] ||
         raceEntry?.raceImages?.[genderKey] ||
         raceEntry?.raceImage ||
+        CFG?.defaultRaceTypeImages?.[typeId]?.[genderKey] ||
         CFG?.defaultRaceImages?.[genderKey] ||
         CFG?.defaultRaceImage ||
         "icons/svg/mystery-man.svg"
@@ -632,7 +634,7 @@ const npcGenerator = {
 
             const gender = pickGender();
             const { speed, languages: raceLangs, entry: raceEntry } = getRaceParams(raceId);
-            const raceImage = getRaceImage(raceEntry, gender);
+            const raceImage = getRaceImage(raceEntry, gender, typeId);
             const { cr, xp, skills, extraLanguages } = getTypeParams(typeId);
 
             let abilities = {

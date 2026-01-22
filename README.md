@@ -97,6 +97,7 @@ Gender: Male
 - **Age distribution**: Adjust `races[*].age.buckets` in `config/config.json`; edit `ages/labels.txt` for display text.  
 - **Equipment/Spells**: Edit `npc_gear.json` and `npc_spells.json`.  
 - **NPC portrait/token images**: Place images under `modules/npc-generator/assets/portraits/<Race>/<gender>.webp` (recommended), then set `races[*].raceImages.male|female|other` or `defaultRaceImages.male|female|other` in `data/config/config.json` to those paths (e.g. `modules/npc-generator/assets/portraits/Human/male.webp`). You can use any file name or folder, but keep the gender keys as `male`, `female`, or `other`.  
+- **NPC portrait/token images by type**: For class/type-specific portraits, use `modules/npc-generator/assets/portraits/<Race>/<Type>/<gender>.webp` and set `races[*].raceTypeImages.<Type>.male|female|other` or `defaultRaceTypeImages.<Type>.male|female|other` (e.g. `modules/npc-generator/assets/portraits/Human/Guard/male.webp`).  
 
 ---
 
