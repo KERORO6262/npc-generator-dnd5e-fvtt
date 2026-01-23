@@ -19,33 +19,6 @@
     "gear": "modules/npc-generator/data/npc_gear.json",
     "spells": "modules/npc-generator/data/npc_spells.json"
   },
-  "defaultRaceTypeImages": {
-    "Commoner": {
-      "male": "modules/npc-generator/assets/portraits/default/Commoner/male.webp",
-      "female": "modules/npc-generator/assets/portraits/default/Commoner/female.webp",
-      "other": "modules/npc-generator/assets/portraits/default/Commoner/other.webp"
-    },
-    "Bandit": {
-      "male": "modules/npc-generator/assets/portraits/default/Bandit/male.webp",
-      "female": "modules/npc-generator/assets/portraits/default/Bandit/female.webp",
-      "other": "modules/npc-generator/assets/portraits/default/Bandit/other.webp"
-    },
-    "Guard": {
-      "male": "modules/npc-generator/assets/portraits/default/Guard/male.webp",
-      "female": "modules/npc-generator/assets/portraits/default/Guard/female.webp",
-      "other": "modules/npc-generator/assets/portraits/default/Guard/other.webp"
-    },
-    "Scout": {
-      "male": "modules/npc-generator/assets/portraits/default/Scout/male.webp",
-      "female": "modules/npc-generator/assets/portraits/default/Scout/female.webp",
-      "other": "modules/npc-generator/assets/portraits/default/Scout/other.webp"
-    },
-    "Thug": {
-      "male": "modules/npc-generator/assets/portraits/default/Thug/male.webp",
-      "female": "modules/npc-generator/assets/portraits/default/Thug/female.webp",
-      "other": "modules/npc-generator/assets/portraits/default/Thug/other.webp"
-    }
-  },
   "races": [
     {
       "id": "Human",

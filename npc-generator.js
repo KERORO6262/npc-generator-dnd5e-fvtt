@@ -612,7 +612,6 @@ function getRaceImage(raceEntry, gender, typeId) {
     const genderKey = normalizeGenderKey(gender);
     return (
         raceEntry?.raceTypeImages?.[typeId]?.[genderKey] ||
-        CFG?.defaultRaceTypeImages?.[typeId]?.[genderKey] ||
         "icons/svg/mystery-man.svg"
     );
 }
