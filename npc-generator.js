@@ -611,9 +611,9 @@ function normalizeGenderKey(gender) {
 function getRaceImage(raceEntry, gender, typeId) {
     const genderKey = normalizeGenderKey(gender);
     return (
+        raceEntry?.raceTypeImages?.[typeId]?.[genderKey] ||
         raceEntry?.raceImages?.[genderKey] ||
         raceEntry?.raceImage ||
-        raceEntry?.raceTypeImages?.[typeId]?.[genderKey] ||
         CFG?.defaultRaceTypeImages?.[typeId]?.[genderKey] ||
         CFG?.defaultRaceImages?.[genderKey] ||
         CFG?.defaultRaceImage ||

@@ -90,11 +90,11 @@ Gender: Male
 ---
 
 ## 🧭 NPC Generation Flow (Portrait Selection)
-1. Pick race, type, and gender from the configured pools.  
+1. Pick race, then gender, then type from the configured pools.  
 2. Resolve the portrait path in this order:  
-   1) `races[*].raceImages[gender]`  
-   2) `races[*].raceImage`  
-   3) `races[*].raceTypeImages[Type][gender]`  
+   1) `races[*].raceTypeImages[Type][gender]`  
+   2) `races[*].raceImages[gender]`  
+   3) `races[*].raceImage`  
    4) `defaultRaceTypeImages[Type][gender]`  
    5) `defaultRaceImages[gender]`  
    6) `defaultRaceImage`  

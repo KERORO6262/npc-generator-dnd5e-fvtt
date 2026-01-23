@@ -88,11 +88,11 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 ---
 
 ## 🧭 生成流程（頭像選擇）
-1. 從資料池選擇種族、職業/類型與性別。  
+1. 依序選擇種族 → 性別 → 職業/類型。  
 2. 依以下順序解析頭像路徑：  
-   1) `races[*].raceImages[gender]`  
-   2) `races[*].raceImage`  
-   3) `races[*].raceTypeImages[Type][gender]`  
+   1) `races[*].raceTypeImages[Type][gender]`  
+   2) `races[*].raceImages[gender]`  
+   3) `races[*].raceImage`  
    4) `defaultRaceTypeImages[Type][gender]`  
    5) `defaultRaceImages[gender]`  
    6) `defaultRaceImage`  
