@@ -626,9 +626,8 @@ const npcGenerator = {
             if (!CFG) throw new Error("配置尚未載入");
 
             const raceId = pick(RACES.map(r => r.id), "Human");
-            const typeId = pick(TYPES.map(t => t.id), "Commoner");
-
             const gender = pickGender();
+            const typeId = pick(TYPES.map(t => t.id), "Commoner");
             const { speed, languages: raceLangs, entry: raceEntry } = getRaceParams(raceId);
             const raceImage = getRaceImage(raceEntry, gender, typeId);
             const { cr, xp, skills, extraLanguages } = getTypeParams(typeId);
