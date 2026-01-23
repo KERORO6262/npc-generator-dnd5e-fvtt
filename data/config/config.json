@@ -19,12 +19,6 @@
     "gear": "modules/npc-generator/data/npc_gear.json",
     "spells": "modules/npc-generator/data/npc_spells.json"
   },
-  "defaultRaceImage": "modules/npc-generator/assets/portraits/default.webp",
-  "defaultRaceImages": {
-    "male": "modules/npc-generator/assets/portraits/default/male.webp",
-    "female": "modules/npc-generator/assets/portraits/default/female.webp",
-    "other": "modules/npc-generator/assets/portraits/default/other.webp"
-  },
   "defaultRaceTypeImages": {
     "Commoner": {
       "male": "modules/npc-generator/assets/portraits/default/Commoner/male.webp",
@@ -55,12 +49,6 @@
   "races": [
     {
       "id": "Human",
-      "raceImage": "modules/npc-generator/assets/portraits/Human/default.webp",
-      "raceImages": {
-        "male": "modules/npc-generator/assets/portraits/Human/male.webp",
-        "female": "modules/npc-generator/assets/portraits/Human/female.webp",
-        "other": "modules/npc-generator/assets/portraits/Human/other.webp"
-      },
       "raceTypeImages": {
         "Commoner": {
           "male": "modules/npc-generator/assets/portraits/Human/Commoner/male.webp",
@@ -143,12 +131,6 @@
     },
     {
       "id": "Elf",
-      "raceImage": "modules/npc-generator/assets/portraits/Elf/default.webp",
-      "raceImages": {
-        "male": "modules/npc-generator/assets/portraits/Elf/male.webp",
-        "female": "modules/npc-generator/assets/portraits/Elf/female.webp",
-        "other": "modules/npc-generator/assets/portraits/Elf/other.webp"
-      },
       "raceTypeImages": {
         "Commoner": {
           "male": "modules/npc-generator/assets/portraits/Elf/Commoner/male.webp",
@@ -227,12 +209,6 @@
     },
     {
       "id": "Dwarf",
-      "raceImage": "modules/npc-generator/assets/portraits/Dwarf/default.webp",
-      "raceImages": {
-        "male": "modules/npc-generator/assets/portraits/Dwarf/male.webp",
-        "female": "modules/npc-generator/assets/portraits/Dwarf/female.webp",
-        "other": "modules/npc-generator/assets/portraits/Dwarf/other.webp"
-      },
       "raceTypeImages": {
         "Commoner": {
           "male": "modules/npc-generator/assets/portraits/Dwarf/Commoner/male.webp",
@@ -311,12 +287,6 @@
     },
     {
       "id": "Halfling",
-      "raceImage": "modules/npc-generator/assets/portraits/Halfling/default.webp",
-      "raceImages": {
-        "male": "modules/npc-generator/assets/portraits/Halfling/male.webp",
-        "female": "modules/npc-generator/assets/portraits/Halfling/female.webp",
-        "other": "modules/npc-generator/assets/portraits/Halfling/other.webp"
-      },
       "raceTypeImages": {
         "Commoner": {
           "male": "modules/npc-generator/assets/portraits/Halfling/Commoner/male.webp",
@@ -395,12 +365,6 @@
     },
     {
       "id": "Tiefling",
-      "raceImage": "modules/npc-generator/assets/portraits/Tiefling/default.webp",
-      "raceImages": {
-        "male": "modules/npc-generator/assets/portraits/Tiefling/male.webp",
-        "female": "modules/npc-generator/assets/portraits/Tiefling/female.webp",
-        "other": "modules/npc-generator/assets/portraits/Tiefling/other.webp"
-      },
       "raceTypeImages": {
         "Commoner": {
           "male": "modules/npc-generator/assets/portraits/Tiefling/Commoner/male.webp",

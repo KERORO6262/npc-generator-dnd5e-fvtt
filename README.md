@@ -93,12 +93,8 @@ Gender: Male
 1. Pick race, then gender, then type from the configured pools.  
 2. Resolve the portrait path in this order:  
    1) `races[*].raceTypeImages[Type][gender]`  
-   2) `races[*].raceImages[gender]`  
-   3) `races[*].raceImage`  
-   4) `defaultRaceTypeImages[Type][gender]`  
-   5) `defaultRaceImages[gender]`  
-   6) `defaultRaceImage`  
-   7) `icons/svg/mystery-man.svg`  
+   2) `defaultRaceTypeImages[Type][gender]`  
+   3) `icons/svg/mystery-man.svg`  
 3. Apply the resolved portrait to the actor `img` and the prototype token texture.  
 
 ---
@@ -110,8 +106,7 @@ Gender: Male
 - **Gender pool**: Edit `genders.txt`.  
 - **Age distribution**: Adjust `races[*].age.buckets` in `config/config.json`; edit `ages/labels.txt` for display text.  
 - **Equipment/Spells**: Edit `npc_gear.json` and `npc_spells.json`.  
-- **NPC portrait/token images**: Place images under `modules/npc-generator/assets/portraits/<Race>/<gender>.webp` (recommended), then set `races[*].raceImages.male|female|other` or `defaultRaceImages.male|female|other` in `data/config/config.json` to those paths (e.g. `modules/npc-generator/assets/portraits/Human/male.webp`). You can use any file name or folder, but keep the gender keys as `male`, `female`, or `other`.  
-- **NPC portrait/token images by type**: For class/type-specific portraits, use `modules/npc-generator/assets/portraits/<Race>/<Type>/<gender>.webp` and set `races[*].raceTypeImages.<Type>.male|female|other` or `defaultRaceTypeImages.<Type>.male|female|other` (e.g. `modules/npc-generator/assets/portraits/Human/Guard/male.webp`).  
+- **NPC portrait/token images**: Use `modules/npc-generator/assets/portraits/<Race>/<Type>/<gender>.webp`, and set `races[*].raceTypeImages.<Type>.male|female|other` or `defaultRaceTypeImages.<Type>.male|female|other` in `data/config/config.json` (e.g. `modules/npc-generator/assets/portraits/Human/Guard/male.webp`). The gender keys must be `male`, `female`, or `other`.  
 
 ---
 
