@@ -89,6 +89,20 @@ Gender: Male
 
 ---
 
+## 🧭 NPC Generation Flow (Portrait Selection)
+1. Pick race, type, and gender from the configured pools.  
+2. Resolve the portrait path in this order:  
+   1) `races[*].raceImages[gender]`  
+   2) `races[*].raceImage`  
+   3) `races[*].raceTypeImages[Type][gender]`  
+   4) `defaultRaceTypeImages[Type][gender]`  
+   5) `defaultRaceImages[gender]`  
+   6) `defaultRaceImage`  
+   7) `icons/svg/mystery-man.svg`  
+3. Apply the resolved portrait to the actor `img` and the prototype token texture.  
+
+---
+
 ## 🛠️ How to Extend
 - **Name pools**: Edit `first_names.txt` and `last_names.txt`.  
 - **Backgrounds/Personalities/Quirks**: Add one entry per line in the corresponding TXT file.  
