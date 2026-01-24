@@ -479,8 +479,7 @@ function pickAgeForRace(raceId) {
 }
 
 // 傳記/背景（★ 年齡置於倒數第二行；性別最後）
-function buildTexts(raceId) {
-    const gender = pickGender();
+function buildTexts(raceId, gender) {
     const bg = pick(BACKGROUND_STORIES, "來自平凡家庭，行走四方。");
     const per = pick(PERSONALITIES, null);
     const q = pick(QUIRKS, null);
@@ -602,6 +601,21 @@ function getRaceParams(raceId) {
     };
 }
 
+function normalizeGenderKey(gender) {
+    const raw = String(gender || "").toLowerCase();
+    if (/(female|woman|girl|女)/.test(raw)) return "female";
+    if (/(male|man|boy|男)/.test(raw)) return "male";
+    return "other";
+}
+
+function getRaceImage(raceEntry, gender, typeId) {
+    const genderKey = normalizeGenderKey(gender);
+    return (
+        raceEntry?.raceTypeImages?.[typeId]?.[genderKey] ||
+        "icons/svg/mystery-man.svg"
+    );
+}
+
 /* ========================
  * 產生器主流程
  * ======================== */
@@ -611,9 +625,10 @@ const npcGenerator = {
             if (!CFG) throw new Error("配置尚未載入");
 
             const raceId = pick(RACES.map(r => r.id), "Human");
+            const gender = pickGender();
             const typeId = pick(TYPES.map(t => t.id), "Commoner");
-
             const { speed, languages: raceLangs, entry: raceEntry } = getRaceParams(raceId);
+            const raceImage = getRaceImage(raceEntry, gender, typeId);
             const { cr, xp, skills, extraLanguages } = getTypeParams(typeId);
 
             let abilities = {
@@ -626,7 +641,7 @@ const npcGenerator = {
             };
             applyRaceAbilityBonus(abilities, raceEntry);
 
-            const { biographyHTML, backgroundPlain } = buildTexts(raceId);
+            const { biographyHTML, backgroundPlain } = buildTexts(raceId, gender);
             const items = await buildItemsByType(typeId);
             const hp = Math.floor(Math.random() * 20) + 10; // 10~30
             const ac = Math.floor(Math.random() * 5) + 10;
@@ -636,6 +651,10 @@ const npcGenerator = {
             const newActorData = {
                 name: `${fullName} (${typeId}, ${raceId})`,
                 type: "npc",
+                img: raceImage,
+                prototypeToken: {
+                    texture: { src: raceImage }
+                },
                 items,
                 system: {
                     details: {

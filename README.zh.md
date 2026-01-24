@@ -87,6 +87,15 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 
 ---
 
+## 🧭 生成流程（頭像選擇）
+1. 依序選擇種族 → 性別 → 職業/類型。  
+2. 依以下順序解析頭像路徑：  
+   1) `races[*].raceTypeImages[Type][gender]`  
+   2) `icons/svg/mystery-man.svg`  
+3. 將解析後的頭像套用至 Actor 的 `img` 與原型 Token 的材質。  
+
+---
+
 ## 🛠️ 如何擴充
 - **名字池**：編輯 first_names.txt、last_names.txt。  
 - **背景/個性/怪癖**：對應 TXT 每行新增一條。  
@@ -94,6 +103,7 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 - **性別池**：編輯 genders.txt。  
 - **年齡分布**：修改 config/config.json 的 races[*].age.buckets；修改 ages/labels.txt 改顯示文字。  
 - **裝備/法術**：編輯 npc_gear.json、npc_spells.json。  
+- **NPC 頭像/Token 圖片**：請使用 `modules/npc-generator/assets/portraits/<Race>/<Type>/<gender>.webp`，並在 `data/config/config.json` 設定 `races[*].raceTypeImages.<Type>.male|female|other`（例如 `modules/npc-generator/assets/portraits/Human/Guard/male.webp`）。性別鍵名需固定為 `male`、`female`、`other`。  
 
 ---
 

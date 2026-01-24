@@ -89,6 +89,15 @@ Gender: Male
 
 ---
 
+## 🧭 NPC Generation Flow (Portrait Selection)
+1. Pick race, then gender, then type from the configured pools.  
+2. Resolve the portrait path in this order:  
+   1) `races[*].raceTypeImages[Type][gender]`  
+   2) `icons/svg/mystery-man.svg`  
+3. Apply the resolved portrait to the actor `img` and the prototype token texture.  
+
+---
+
 ## 🛠️ How to Extend
 - **Name pools**: Edit `first_names.txt` and `last_names.txt`.  
 - **Backgrounds/Personalities/Quirks**: Add one entry per line in the corresponding TXT file.  
@@ -96,6 +105,7 @@ Gender: Male
 - **Gender pool**: Edit `genders.txt`.  
 - **Age distribution**: Adjust `races[*].age.buckets` in `config/config.json`; edit `ages/labels.txt` for display text.  
 - **Equipment/Spells**: Edit `npc_gear.json` and `npc_spells.json`.  
+- **NPC portrait/token images**: Use `modules/npc-generator/assets/portraits/<Race>/<Type>/<gender>.webp`, and set `races[*].raceTypeImages.<Type>.male|female|other` in `data/config/config.json` (e.g. `modules/npc-generator/assets/portraits/Human/Guard/male.webp`). The gender keys must be `male`, `female`, or `other`.  
 
 ---
 
