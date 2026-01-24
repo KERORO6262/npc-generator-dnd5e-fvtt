@@ -111,7 +111,7 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 - [ ] 依性別切換取名池  
 - [ ] 依 NPC 類型調整年齡分布  
 - [ ] 年齡修正屬性  
-- [ ] 指令參數 /npc elf guard 女
+- [ ] 指令參數 /npc elf guard female
 
 ---
 
