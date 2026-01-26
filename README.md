@@ -78,6 +78,7 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 
 ## ▶️ Usage
 Type `/npc` in the chat box.  
+Or specify parameters in English order: `/npc [race] [type] [gender]` (you can omit any part).  
 The generated NPC will appear in **Actors**.  
 Example background field:
 Background: Once served as a town guard…
@@ -113,7 +114,7 @@ Gender: Male
 - [ ] Gender-based naming pools  
 - [ ] Age distribution adjusted by NPC type  
 - [ ] Age affecting attributes  
-- [ ] Command parameters `/npc elf guard female`
+- [x] Command parameters `/npc elf guard female`
 
 ---
 

@@ -76,6 +76,7 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 
 ## ▶️ 使用方式
 在聊天輸入：/npc
+或指定參數（英文且順序固定）：/npc [race] [type] [gender]（可省略任何欄位）  
 生成的 NPC 會出現在 **Actors**。  
 範例背景欄位：
 背景：曾經是城鎮守衛…
@@ -111,7 +112,7 @@ https://raw.githubusercontent.com/KERORO6262/npc-generator-dnd5e-fvtt/main/modul
 - [ ] 依性別切換取名池  
 - [ ] 依 NPC 類型調整年齡分布  
 - [ ] 年齡修正屬性  
-- [ ] 指令參數 /npc elf guard female
+- [x] 指令參數 /npc elf guard female
 
 ---
 

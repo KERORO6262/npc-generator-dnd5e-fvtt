@@ -608,6 +608,32 @@ function normalizeGenderKey(gender) {
     return "other";
 }
 
+function resolveGenderKeyFromToken(token) {
+    const raw = String(token || "").toLowerCase();
+    if (/(female|woman|girl)/.test(raw)) return "female";
+    if (/(male|man|boy)/.test(raw)) return "male";
+    if (/(other|nonbinary|non-binary|nb)/.test(raw)) return "other";
+    return null;
+}
+
+function resolveGenderDisplay(genderKey) {
+    if (!genderKey) return null;
+    const matched = GENDERS.find((entry) => normalizeGenderKey(entry) === genderKey);
+    if (matched) return matched;
+    const fallback = {
+        female: "女",
+        male: "男",
+        other: "不分性別"
+    };
+    return fallback[genderKey] || null;
+}
+
+function resolveIdFromToken(token, entries) {
+    const normalized = String(token || "").toLowerCase();
+    const hit = entries.find((entry) => String(entry?.id || "").toLowerCase() === normalized);
+    return hit?.id || null;
+}
+
 function getRaceImage(raceEntry, gender, typeId) {
     const genderKey = normalizeGenderKey(gender);
     return (
@@ -616,17 +642,70 @@ function getRaceImage(raceEntry, gender, typeId) {
     );
 }
 
+function parseNpcCommand(message) {
+    const trimmed = String(message || "").trim();
+    if (!/^\/npc(\s|$)/i.test(trimmed)) return null;
+
+    const tokens = trimmed.split(/\s+/).slice(1);
+    if (!tokens.length) return { options: {}, unknownTokens: [] };
+
+    const [raceToken, typeToken, genderToken, ...extraTokens] = tokens;
+    const unknownTokens = [...extraTokens];
+    let raceId = null;
+    let typeId = null;
+    let genderKey = null;
+
+    if (raceToken) {
+        raceId = resolveIdFromToken(raceToken, RACES);
+        if (!raceId) {
+            typeId = resolveIdFromToken(raceToken, TYPES);
+            if (!typeId) {
+                genderKey = resolveGenderKeyFromToken(raceToken);
+                if (!genderKey) unknownTokens.push(raceToken);
+            }
+        }
+    }
+
+    if (typeToken) {
+        if (!typeId) {
+            typeId = resolveIdFromToken(typeToken, TYPES);
+            if (!typeId) {
+                genderKey = resolveGenderKeyFromToken(typeToken);
+                if (!genderKey) unknownTokens.push(typeToken);
+            }
+        } else {
+            genderKey = resolveGenderKeyFromToken(typeToken);
+            if (!genderKey) unknownTokens.push(typeToken);
+        }
+    }
+
+    if (genderToken) {
+        if (!genderKey) {
+            genderKey = resolveGenderKeyFromToken(genderToken);
+            if (!genderKey) unknownTokens.push(genderToken);
+        } else {
+            unknownTokens.push(genderToken);
+        }
+    }
+
+    const gender = resolveGenderDisplay(genderKey);
+    return {
+        options: { raceId, typeId, gender },
+        unknownTokens
+    };
+}
+
 /* ========================
  * 產生器主流程
  * ======================== */
 const npcGenerator = {
-    async createRandomNPC() {
+    async createRandomNPC(options = {}) {
         try {
             if (!CFG) throw new Error("配置尚未載入");
 
-            const raceId = pick(RACES.map(r => r.id), "Human");
-            const gender = pickGender();
-            const typeId = pick(TYPES.map(t => t.id), "Commoner");
+            const raceId = options.raceId || pick(RACES.map(r => r.id), "Human");
+            const gender = options.gender || pickGender();
+            const typeId = options.typeId || pick(TYPES.map(t => t.id), "Commoner");
             const { speed, languages: raceLangs, entry: raceEntry } = getRaceParams(raceId);
             const raceImage = getRaceImage(raceEntry, gender, typeId);
             const { cr, xp, skills, extraLanguages } = getTypeParams(typeId);
@@ -699,8 +778,12 @@ const npcGenerator = {
 
 // 聊天指令：/npc
 Hooks.on("chatMessage", (chatLog, message) => {
-    if (message.trim().toLowerCase() === "/npc") {
-        npcGenerator.createRandomNPC();
+    const parsed = parseNpcCommand(message);
+    if (parsed) {
+        if (parsed.unknownTokens.length) {
+            ui.notifications?.warn(`NPC 指令未識別參數：${parsed.unknownTokens.join(", ")}`);
+        }
+        npcGenerator.createRandomNPC(parsed.options);
         return false;
     }
     return true;
