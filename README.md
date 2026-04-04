@@ -13,7 +13,6 @@ A FoundryVTT module that quickly generates D&D 5e NPCs with names, backgrounds, 
 All data sources are externalized for easy editing and expansion.
 
 ---
-> **Note:** I haven't upgraded to FVTT version 13 yet, so I haven't had the chance to test its feasibility in version 13.
 ## ✨ Features
 - **One-click NPC generation**: Simply type `/npc` in the chat box.  
 - **Externalized data**: Names, backgrounds, personalities, quirks, gender, age, appearance, and racial flavor are all managed via TXT/JSON files.  
