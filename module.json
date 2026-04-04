@@ -2,7 +2,7 @@
   "id": "npc-generator",
   "title": "NPC Generator (dnd5e)",
   "description": "Generate random NPCs with names, backgrounds, personalities, quirks, appearance, age, gender, and gear for dnd5e.",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "authors": [
     { "name": "KERORO6262" }
   ],
@@ -10,8 +10,8 @@
   "readme": "https://github.com/KERORO6262/npc-generator#readme",
   "license": "MIT",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12.343"
+    "minimum": "13",
+    "verified": "13.351"
   },
   "relationships": {
     "systems": [
